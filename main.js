@@ -27,7 +27,7 @@
 
 
 
-// Definiciones
+// Definicion       es
 let total = 0
 let productosAgregados = []
 // productos = [
