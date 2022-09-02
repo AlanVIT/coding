@@ -1,0 +1,18 @@
+#productos{
+    display: flex;
+    justify-content: space-around;
+}
+.items{
+    border-radius: 10px;
+
+}
+.items img{
+    width: 140px;
+    
+}
+.head{
+    display: flex;
+}
+.material-symbols-outlined{
+    cursor:pointer;
+}

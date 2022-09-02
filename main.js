@@ -36,7 +36,8 @@ let month = parseInt(new Date().getMonth()) + 1
 let day = new Date().getUTCDate()
 let year = new Date().getUTCFullYear()
 const date = month+"-"+day+"-"+ year
-const nombrePersona = prompt("Como te llamas?")
+let nombrePersona = prompt("Como te llamas?")
+
 class articulo{
     constructor(nombre ,precio){
     this.nombre = nombre
@@ -50,19 +51,30 @@ class compras{
     this.fecha = fecha
     }
   }
+  let productos = [
+    
+    new articulo("Procesador I3 10 gen", 1000),
+    new articulo("Procesador I5 11 gen", 2000),
+    new articulo("Procesador I7 10 gen", 3500),
+    new articulo("Procesador Ryzen7 11 gen", 5000),
+    new articulo("Procesador I9 10 gen", 10000),
+    new articulo("Procesador Ryzen9 11 gen", 25000),
+    
+]
 // _______________________________
 
 // Funciones
-function sumarValor(valor, producto){
-    total = total + valor
-    productosAgregados.push(producto)
+function agregarAlCarro(index){
+   productosAgregados.push(productos[index].nombre)
+   total = total + productos[index].precio
 }
 
 function carro(){
     if(total !=0){
-    if(total >= 10000){
+    if(total >= 50000){
         let totalcd = total - (total*0.10)
-        console.log("En total deberia pagar:", totalcd,"el descuento es ", total*0.10 , " y va a llevar:", productosAgregados)
+        console.log("En total deberia pagar:", totalcd,"el descuento es ", total*0.10 , " y va a llevar:")
+        console.table(productosAgregados)
         let comprar = confirm("Lo quiere comprar?")
         if(comprar == true){
             totalcd = 0
@@ -71,38 +83,75 @@ function carro(){
             alert("espere un segundo...")
             alert("Comprado!")
             // new compras(nombrePersona, total, new Date().getDate())
-            let recipt = confirm("quiere recivo?")
+            let recipt = confirm("quiere recibo?")
             if (recipt == true) {
                 const compra = new compras(nombrePersona, total, date)
                 console.log('info compra ',compra)
             }
+            else{
+                console.log("Ok, no le daremos recibo")
+            }
             total = 0
         }
-        total = 0
+        else{
+            let numRandom = parseInt(Math.random()*3)
+            if(numRandom == 0){
+            console.log("Ok, tomese su tiempo " + nombrePersona)
+            }
+            if(numRandom == 1){
+                console.log("Decida tranquilo y bien " + nombrePersona)
+            }
+            if(numRandom == 2){
+                console.log("Nadie lo apura, tiene todo el tiempo que usted quiera. "+ nombrePersona+ " Decida bien")
+            }        
+        }
 
     }
     else{
-        console.log("En total deberia pagar:", total, " y va a llevar:", productosAgregados)
+        console.log("En total deberia pagar:", total, " y va a llevar:")
+        console.table(productosAgregados)
         let comprar = confirm("Lo quiere comprar?")
         if(comprar == true){
             productosAgregados = []
             alert("Comprando...")
             alert("espere un segundo...")
             alert("Comprado!")
-            let recipt = confirm("quiere recivo?")
+            let recipt = confirm("quiere recibo?")
             if (recipt == true) {
                 const compra = new compras(nombrePersona, total, date)
                 console.log('info compra ',compra)
             }
+            else{
+                console.log("Ok, no le daremos recibo")
+            }
             total = 0
         }
-        total = 0
+        else{
+            let numRandom = parseInt(Math.random()*3)
+            if(numRandom == 0){
+            console.log("Ok, tomese su tiempo " + nombrePersona)
+            }
+            if(numRandom == 1){
+                console.log("Decida tranquilo y bien " + nombrePersona)
+            }
+            if(numRandom == 2){
+                console.log("Nadie lo apura, tiene todo el tiempo que usted quiera. "+ nombrePersona+ " Decida bien")
+            }        
+        }
     } 
     }
     else{
         alert("Usted no compro nada, seleccione algun producto.")
     }
 
+}
+
+
+function buscador(){
+    let buscado = prompt("que esta buscando?")
+
+    const resultado = productos.filter((el) => el.nombre.includes(buscado))
+    console.table(resultado)
 }
 
 // ---------
