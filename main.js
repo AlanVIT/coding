@@ -69,28 +69,33 @@ function agregarAlCarro(index){
    total = total + productos[index].precio
 }
 
+
 function carro(){
     if(total !=0){
-    if(total >= 50000){
-        let totalcd = total - (total*0.10)
-        console.log("En total deberia pagar:", totalcd,"el descuento es ", total*0.10 , " y va a llevar:")
+        if(total >= 50000){
+            var totalcd = total - (total*0.10)
+            console.log("En total deberia pagar:", totalcd,"el descuento es ", total*0.10 , " y va a llevar:")
+        }
+        else{
+            var totalcd = total
+            console.log("En total deberia pagar:", total, " y va a llevar:")
+        }
         console.table(productosAgregados)
         let comprar = confirm("Lo quiere comprar?")
         if(comprar == true){
+            alert("Comprando...")
+            alert("espere un segundo...")
+            alert("Comprado!")
+            let recipt = confirm("quiere recibo?")
+            if (recipt == true) {
+                let compra = new compras(nombrePersona, totalcd, date)
+                console.log('info compra ',compra)
+            }
+            else{
+                console.log("Ok, no le daremos recibo")
+            }
             totalcd = 0
             productosAgregados = []
-            alert("Comprando...")
-            alert("espere un segundo...")
-            alert("Comprado!")
-            // new compras(nombrePersona, total, new Date().getDate())
-            let recipt = confirm("quiere recibo?")
-            if (recipt == true) {
-                const compra = new compras(nombrePersona, total, date)
-                console.log('info compra ',compra)
-            }
-            else{
-                console.log("Ok, no le daremos recibo")
-            }
             total = 0
         }
         else{
@@ -105,40 +110,6 @@ function carro(){
                 console.log("Nadie lo apura, tiene todo el tiempo que usted quiera. "+ nombrePersona+ " Decida bien")
             }        
         }
-
-    }
-    else{
-        console.log("En total deberia pagar:", total, " y va a llevar:")
-        console.table(productosAgregados)
-        let comprar = confirm("Lo quiere comprar?")
-        if(comprar == true){
-            productosAgregados = []
-            alert("Comprando...")
-            alert("espere un segundo...")
-            alert("Comprado!")
-            let recipt = confirm("quiere recibo?")
-            if (recipt == true) {
-                const compra = new compras(nombrePersona, total, date)
-                console.log('info compra ',compra)
-            }
-            else{
-                console.log("Ok, no le daremos recibo")
-            }
-            total = 0
-        }
-        else{
-            let numRandom = parseInt(Math.random()*3)
-            if(numRandom == 0){
-            console.log("Ok, tomese su tiempo " + nombrePersona)
-            }
-            if(numRandom == 1){
-                console.log("Decida tranquilo y bien " + nombrePersona)
-            }
-            if(numRandom == 2){
-                console.log("Nadie lo apura, tiene todo el tiempo que usted quiera. "+ nombrePersona+ " Decida bien")
-            }        
-        }
-    } 
     }
     else{
         alert("Usted no compro nada, seleccione algun producto.")
