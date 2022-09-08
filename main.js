@@ -1,31 +1,3 @@
-//----Buscador de multiplos, divisores y numeros primos---
-
-// let limite = parseInt(prompt("ingresa un numero"))
-
-// var arr = []
-// for (let i = 0; i < limite; i++) {
-//     if(parseInt(limite/(i+1))===limite/(i+1)){
-//         console.warn("este si es un divisor", i+1)
-//         arr.push(i+1)
-//         continue
-//     }
-//     console.error(i+1, "no es un divisor")
-// }
-// if(arr.length===2){
-//     console.log("ES PRIMO!!")
-// }
-// else{
-//     console.log("No es un numero primo")
-// }
-// let seguir = confirm("Queres un multiplo?") 
-// let fct = 1
-// while (seguir) {
-//     console.log(limite*fct)
-//     seguir = confirm("otro?")
-//     fct++ 
-// }
-
-//__________________________________________________________________________
 
 // Simulador
 
@@ -35,22 +7,34 @@ let productosAgregados = []
 let month = parseInt(new Date().getMonth()) + 1
 let day = new Date().getUTCDate()
 let year = new Date().getUTCFullYear()
-const date = month+"-"+day+"-"+ year
 let nombrePersona = prompt("Como te llamas?")
+if (nombrePersona == ''|| nombrePersona == null){
+    console.warn("Algo me suena raro... Se llama null o acaso no tiene nombre?")
+    if (confirm("Quiere cambiar el nombre que puso o realmente se llama null?")){
+        nombrePersona = prompt("Como te llamas realmente?")
+    }
+}
+document.getElementById('total').innerHTML = total
+let saludos = [
+    "Bienvenido a nuestro E-comerce " + nombrePersona,
+    "Esperamos que disfrute su experiencia",
+    "Como esta? " + nombrePersona + " bienvenido!"
+]
+const date = month+"-"+day+"-"+ year
 
 class articulo{
     constructor(nombre ,precio){
     this.nombre = nombre
     this.precio = precio
     }
-  }
+}
 class compras{
     constructor(nombre ,precio, fecha){
     this.nombre = nombre
     this.precio = precio
     this.fecha = fecha
     }
-  }
+}
   let productos = [
     
     new articulo("Procesador I3 10 gen", 1000),
@@ -67,8 +51,14 @@ class compras{
 function agregarAlCarro(index){
    productosAgregados.push(productos[index].nombre)
    total = total + productos[index].precio
+   if(total >= 50000){
+    document.getElementById('total').innerHTML = total*0.9
+   }
+   else{
+    document.getElementById('total').innerHTML = total
+   }
+   console.log("Acaba de agregar", productos[index].nombre, "Que vale", productos[index].precio)
 }
-
 
 function carro(){
     if(total !=0){
@@ -120,9 +110,17 @@ function carro(){
 
 function buscador(){
     let buscado = prompt("que esta buscando?")
-
-    const resultado = productos.filter((el) => el.nombre.includes(buscado))
+    buscado = buscado.toUpperCase()
+    const resultado = productos.filter((el) => el.nombre.toUpperCase().includes(buscado))
     console.table(resultado)
 }
 
+function bienvenida(){
+
+    let numRandom = parseInt(Math.random()*3)
+    document.getElementById("h2").innerHTML = saludos[numRandom]
+
+}
+bienvenida()
 // ---------
+

@@ -10,8 +10,9 @@
     width: 140px;
     
 }
-.head{
+.head {
     display: flex;
+    flex-direction: column;
 }
 .material-symbols-outlined{
     cursor:pointer;
