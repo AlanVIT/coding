@@ -2,14 +2,6 @@
     display: flex;
     justify-content: space-around;
 }
-.items{
-    border-radius: 10px;
-
-}
-.items img{
-    width: 140px;
-    
-}
 .head {
     display: flex;
     flex-direction: column;
@@ -17,3 +9,14 @@
 .material-symbols-outlined{
     cursor:pointer;
 }
+/* 
+.items_Intel img, .items_Ryzen img{
+    width: 140px;
+    transition: 1s;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 10px;
+}
+.items_Intel input{
+    background-color:rgb(31, 65, 163);
+} */

@@ -2,11 +2,32 @@
 // Simulador
 
 // Definiciones
+// let busqueda = document.getElementById("buscador")
+// let frase = ""
+// busqueda.addEventListener("keypress", (e)=>{
+//     frase = frase + e.key
+//     console.log(frase, e.key)
+// })
+
 let total = 0
 let productosAgregados = []
+
 let month = parseInt(new Date().getMonth()) + 1
 let day = new Date().getUTCDate()
 let year = new Date().getUTCFullYear()
+
+let verCarro = document.getElementById("carro")
+verCarro.addEventListener("click", carro)
+
+let buscar = document.getElementById("buscar")
+buscar.addEventListener("click", buscador)
+
+
+// let agregarCarro = document.getElementsByClassName("agregar")
+// agregarCarro.addEventListener("click", ()=>{
+
+// })
+
 let nombrePersona = prompt("Como te llamas?")
 if (nombrePersona == ''|| nombrePersona == null){
     console.warn("Algo me suena raro... Se llama null o acaso no tiene nombre?")
@@ -14,7 +35,9 @@ if (nombrePersona == ''|| nombrePersona == null){
         nombrePersona = prompt("Como te llamas realmente?")
     }
 }
+
 document.getElementById('total').innerHTML = total
+
 let saludos = [
     "Bienvenido a nuestro E-comerce " + nombrePersona,
     "Esperamos que disfrute su experiencia",
@@ -76,6 +99,7 @@ function carro(){
             alert("Comprando...")
             alert("espere un segundo...")
             alert("Comprado!")
+            document.getElementById("total").innerHTML = 0
             let recipt = confirm("quiere recibo?")
             if (recipt == true) {
                 let compra = new compras(nombrePersona, totalcd, date)
@@ -107,11 +131,11 @@ function carro(){
 
 }
 
-
 function buscador(){
-    let buscado = prompt("que esta buscando?")
-    buscado = buscado.toUpperCase()
-    const resultado = productos.filter((el) => el.nombre.toUpperCase().includes(buscado))
+
+    let buscar = prompt("que esta buscando?")
+    buscar = buscar.toUpperCase()
+    const resultado = productos.filter((el) => el.nombre.includes(buscar))
     console.table(resultado)
 }
 
@@ -122,5 +146,7 @@ function bienvenida(){
 
 }
 bienvenida()
+
+
 // ---------
 
