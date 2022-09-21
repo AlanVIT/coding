@@ -5,10 +5,18 @@
 .head {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .material-symbols-outlined{
     cursor:pointer;
 }
+.total{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 /* 
 .items_Intel img, .items_Ryzen img{
     width: 140px;
@@ -20,3 +28,18 @@
 .items_Intel input{
     background-color:rgb(31, 65, 163);
 } */
+
+.noSeNecesita{
+    display: none;
+}
+
+.siSeNecesita{
+    display: block;
+}
+#tabla{
+    display: flex;
+}
+#productosCarro{
+    display: flex;
+    flex-wrap: wrap;
+}
