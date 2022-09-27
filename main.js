@@ -1,7 +1,7 @@
 let total = 0
 let productosAgregados = []
 
-let tabla = document.getElementById("tabla")
+let tabla = document.querySelector("#tabla")
 
 let month = parseInt(new Date().getMonth())
 let day = new Date().getUTCDate()
@@ -10,7 +10,15 @@ let year = new Date().getUTCFullYear()
 let buscar = document.getElementById("buscar")
 buscar.addEventListener("click", buscador)
 
-const nombrePersona = localStorage.getItem("Nombre")
+let barraBuscar = document.querySelector("#buscador")
+
+let cerrar = document.querySelector("#cerrar")
+cerrar.addEventListener("click", (a)=>{
+    barraBuscar.value = ""
+    buscador()
+})
+
+let nombrePersona = localStorage.getItem("Nombre")
 if( nombrePersona == null){
     nombrePersona = prompt("Ingrese su nombre")
 }
@@ -38,6 +46,8 @@ let productos = [
     new articulo("Procesador Ryzen7 11 gen", 5000, 3, "prc" ,"assets/Ryzen7.png"),
     new articulo("Procesador I9 10 gen", 10000, 4, "prc" ,"assets/I9.png"),
     new articulo("Procesador Ryzen9 11 gen", 25000, 5, "prc" ,"assets/Ryzen9.png"),
+    new articulo("RTX 3060", 40000, 6, "pdv" ,"assets/RTX 3060.png"),
+    new articulo("RTX 3090", 45000, 7, "pdv" ,"assets/RTX 3090.png"),
     
 ]
 
@@ -45,28 +55,48 @@ let productos = [
 
 // Funciones
 
-function buscador(){
+function buscador(){ 
     let buscado = document.getElementById("buscador").value
     buscado = buscado.toUpperCase()
     const resultado = productos.filter((el) => el.nombre.toUpperCase().includes(buscado))
     let fila = ""
     tabla.innerHTML = ""
+    let tipo = ""
     resultado.forEach(producto =>{
-        fila = `
-                <div class="card" style="width: 180px;height: 170px;">
-                <img src="${producto.url}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${producto.nombre}</h5>
-                        <p class="card-text">Valor: ${producto.precio}$</p>
-                        <input type="button" id="btn${producto.id}" value="Agregar al carrito"></input>
+        let { url, nombre, precio} = producto //Aca aplico lo que vimos en la clase
+        if (tipo === producto.tipo){
+            fila = `
+                    <div class="card" style="width: 180px;height: 365px;">
+                        <img src="${url}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">${nombre}</h5>
+                            <p class="card-text">Valor: ${precio}$</p>
+                            <input style=" position: absolute; top: 311px;" type="button" id="btn${producto.id}" value="Agregar al carrito"></input></div>
+                        </div>
+            `
+            
+            let productosMismoTipo = document.getElementById(producto.tipo)
+            productosMismoTipo.innerHTML += fila
+        }
+        else{
+            fila = `
+                    <br>
+                    <br>
+                    <div id="${producto.tipo}" style="display: flex;justify-content: space-evenly;">
+                        <div class="card" style="width: 180px;height: 365px;">
+                            <img src="${url}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${nombre}</h5>
+                                <p class="card-text">Valor: ${precio}$</p>
+                                <input style=" position: absolute; top: 311px;" type="button" id="btn${producto.id}" value="Agregar al carrito"></input></div>
+                        </div>
                     </div>
-                </div>
-        `
-        tabla.innerHTML += fila
+                `
+            tabla.innerHTML += fila
+        }
+        tipo = producto.tipo
     })
 }
-
-
 
 function bienvenida(){
 
@@ -79,31 +109,54 @@ bienvenida()
 function cargarProductos(array){
     let fila = ""
     tabla.innerHTML = ""
+    let tipo = ""
     array.forEach(producto =>{
-        fila = `
-                <div class="card" style="width: 180px;height: 170px;">
-                <img src="${producto.url}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${producto.nombre}</h5>
-                        <p class="card-text">Valor: ${producto.precio}$</p>
-                        <input type="button" id="btn${producto.id}" value="Agregar al carrito"></input>
+        let { url, nombre, precio} = producto //Aca aplico lo que vimos en la clase
+        if (tipo === producto.tipo){
+            fila = `
+                    <div class="card" style="width: 180px;height: 365px;">
+                        <img src="${url}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">${nombre}</h5>
+                            <p class="card-text">Valor: ${precio}$</p>
+                            <input style=" position: absolute; top: 311px;" type="button" id="btn${producto.id}" value="Agregar al carrito"></input></div>
+                        </div>
+            `
+            
+            let productosMismoTipo = document.getElementById(producto.tipo)
+            productosMismoTipo.innerHTML += fila
+        }
+        else{
+            fila = `
+                    <br>
+                    <br>
+                    <div id="${producto.tipo}" style="display: flex;justify-content: space-evenly;">
+                        <div class="card" style="width: 180px;height: 365px;">
+                            <img src="${url}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${nombre}</h5>
+                                <p class="card-text">Valor: ${precio}$</p>
+                                <input style=" position: absolute; top: 311px;" type="button" id="btn${producto.id}" value="Agregar al carrito"></input></div>
+                        </div>
                     </div>
-                </div>
-        `
-        tabla.innerHTML += fila
+                `
+            tabla.innerHTML += fila
+        }
+        tipo = producto.tipo
     })
 }
 
 cargarProductos(productos)
 
 productos.forEach(producto =>{
-    let agregarAlCarrito = document.querySelector(`#btn${producto.id}`) 
+    let{id}=producto //Aca aplico lo que vimos en la clase
+    let agregarAlCarrito = document.querySelector(`#btn${id}`) 
     agregarAlCarrito.addEventListener("click",a =>{
-    productosAgregados.push(productos[producto.id].nombre)
+    productosAgregados.push(productos[id].nombre)
 
     localStorage.setItem("Productos", JSON.stringify(productosAgregados))
 
-    total = total + productos[producto.id].precio
+    total = total + productos[id].precio
     if(total >= 50000){
         var totalNuevo = total * 0.9
         document.getElementById('total').innerHTML = total*0.9
@@ -115,8 +168,6 @@ productos.forEach(producto =>{
     localStorage.setItem("Precio", JSON.stringify(totalNuevo))
     })
 })
-
-        
 
 // ---------
 

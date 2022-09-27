@@ -16,30 +16,16 @@
     align-items: center;
 }
 
-
-/* 
-.items_Intel img, .items_Ryzen img{
-    width: 140px;
-    transition: 1s;
-    border-radius: 10px;
-    border-width: 0;
-    padding: 10px;
-}
-.items_Intel input{
-    background-color:rgb(31, 65, 163);
-} */
-
-.noSeNecesita{
-    display: none;
-}
-
-.siSeNecesita{
-    display: block;
-}
-#tabla{
+/* #tabla{
     display: flex;
-}
+} */
 #productosCarro{
     display: flex;
     flex-wrap: wrap;
+}
+.gris{
+    color:grey
+}
+.negro{
+    color:black
 }
