@@ -19,13 +19,18 @@
 /* #tabla{
     display: flex;
 } */
-#productosCarro{
-    display: flex;
-    flex-wrap: wrap;
-}
+
 .gris{
     color:grey
 }
 .negro{
     color:black
+}
+.botones{
+    position: absolute; top: 311px;
+    background-color: #7ae3ff;
+    border-radius: 15px;
+}
+body{
+    background:linear-gradient(to bottom, #F5D7C8, #D6FFFC) ;
 }

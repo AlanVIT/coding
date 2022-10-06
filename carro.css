@@ -1,0 +1,4 @@
+#productosCarro{
+    display: flex;
+    flex-wrap: wrap;
+}

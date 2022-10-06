@@ -75,7 +75,7 @@ const reinicio = () =>{
 }
 function carro(){
     if(precio !=0 ){
-        if(precio >= 50000){
+            if(precio >= 50000){
             var totalcd = precio*0.9
         }
         else{
@@ -141,7 +141,7 @@ function carro(){
                 Swal.fire({
                     position: 'top-end',
                     timer: 2000,
-                    title:"Decida bien" + nombrePersona
+                    title:"Decida bien " + nombrePersona
                 })
             }
             if(numRandom == 2){
