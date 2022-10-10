@@ -1,5 +1,3 @@
-console.log()
-
 let total = 0
 let productosAgregados = []
 
@@ -69,11 +67,11 @@ const verificarNombre = () =>{
 }
 
 function buscador(){
-    barraBuscar.value == ""?cerrar.style = "display:none;":cerrar.style = "display:line;"
     let buscado = document.getElementById("buscador").value
     buscado = buscado.toUpperCase()
     const resultado = productos.filter((el) => el.nombre.toUpperCase().includes(buscado))
     productosHTML(resultado)
+    cargarBotones(resultado)
 }
 
 function bienvenida(){
@@ -144,7 +142,6 @@ const mostrarMensaje = (agregado) =>{
         parseInt(Math.random()*255)+1,
         parseInt(Math.random()*255)+1
     ]
-    console.table(colores)
     Toastify({
         text: "Acaba de agregar"+agregado.nombre,
         duration: 1000,
@@ -168,35 +165,44 @@ async function cargarProductos(){
     }
 
 }
-const crearBotones = async () =>{ 
-    const response = await fetch("data.json")
-    const data = await response.json()
-    productos = data
-    productos.forEach(producto =>{
+const cargarBotones = (array) =>{
+    array.forEach(producto =>{
         let{id}=producto 
         let agregarAlCarrito = document.querySelector(`#btn${id}`) 
         agregarAlCarrito.addEventListener("click",a =>{
         mostrarMensaje(producto)
-        productosAgregados.push(productos[id].nombre)
-
+        productosAgregados.push({nombre:producto.nombre,precio:producto.precio})
+        
         localStorage.setItem("Productos", JSON.stringify(productosAgregados))
 
-        total = total + productos[id].precio
+        total = total + producto.precio
         if(total >= 50000){
             var totalNuevo = total * 0.9
             document.getElementById('total').innerHTML = total*0.9
+            localStorage.setItem("Descuento", JSON.stringify(total*0.1))
         }
         else{
             var totalNuevo = total
             document.getElementById('total').innerHTML = total
+            localStorage.setItem("Descuento", 0)
         }
         localStorage.setItem("Precio", JSON.stringify(totalNuevo))
-
         })
     })
 }
+const crearBotones = async () =>{ 
+    const response = await fetch("data.json")
+    const data = await response.json()
+    productos = data
+    cargarBotones(productos)
+}
+const comprobarCloseIcon = () =>{
+    setInterval(() => {
+        barraBuscar.value == ""?cerrar.style = "display:none;":cerrar.style = "display:line;"
+    }, 10);}
 // ---------
 //Utilizar funciones
+comprobarCloseIcon()
 bienvenida()
 cargarProductos()
 verificarNombre()

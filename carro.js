@@ -6,6 +6,13 @@ let day = new Date().getUTCDate()
 let year = new Date().getUTCFullYear()
 const date = month+"-"+day+"-"+ year
 
+if(JSON.parse(localStorage.getItem("Descuento")) === "null"){
+    var descuento = 0
+}
+else{
+    var descuento = JSON.parse(localStorage.getItem("Descuento"))
+}
+
 let productosCarrito = JSON.parse(localStorage.getItem("Productos"))
 let precio = JSON.parse(localStorage.getItem("Precio"))
 
@@ -20,67 +27,67 @@ let recibos = document.querySelector("#recibos")
 
 //Funciones
 function ponerProductos(){
-    let ponerPrecio
-    productosCarrito.sort()
-    productosCarrito.forEach(producto =>{        
-        let prod = `<div class="card" style="width: 180px;height: 95px;">
-        <div class="card-body">
-            <h5 class="card-title">${producto}</h5>
+    if(precio ==! 0){
+        let ponerPrecio
+        productosCarrito.sort()
+        productosCarrito.forEach(producto =>{        
+            let prod = `<div class="card" style="width: 180px;height: 150px;">
+            <div class="card-body">
+                <h5 class="card-title">${producto.nombre}</h5>
+                <br>
+                <br>
+                <p>${producto.precio+"$"}</p>
+            </div>
         </div>
-    </div>
-    <br>`
-    prd.innerHTML += prod
-    })
-    ponerPrecio =`<h5>En total va a gastar ${precio}$</h5>`
-    tablaLs.innerHTML += ponerPrecio
-
-    // for (i = 0; i < productosCarrito.length; i++) {
-    //     // debugger
-    //     if(productosCarrito[i]!=productosCarrito[i-1]){
-    //         var cant = 1
-    //         let prod = 
-    //         `<div class="card" style="width: 180px;height: 180px;">
-    //         <div class="card-body">
-    //             <h3 class="card-title">${productosCarrito[i]}</h3>
-    //             <br>
-    //             <p id="cant"></p>
-    //         </div>
-    //     </div>
-    //     <br>`
-    //     prd.innerHTML += prod
-    //     }
-    //     else{
-    //         cant += 1
-    //         document.getElementById("cant").innerHTML = "x" + cant + " productos de este tipo"
-    //     }
-    // }
-
-    // filas =`<h5>En total va a gastar ${precio}$</h5>`
-    // tablaLs.innerHTML += filas
+        <br>`
+        prd.innerHTML += prod
+        })
+        if(descuento === 0){
+            precio === 45000?ponerPrecio =`<h5>Acaso usted no sabe que hacemos un descuento del 10% gastando mas de 50000$?, usted gasto 45.000, por lo que puede gastar 5000 pagados por nosotros, vuelva al <a href="index.html">inicio</a> y agarre lo que guste por 5000$</h5>`:ponerPrecio =`<h5>En total va a gastar ${precio}$, si gasta ${50000-precio}$ o mas tendra un descuento del 10%</h5>`
+        }
+        else{
+            ponerPrecio =`<h5>En total va a gastar ${precio}$, su descuento es de ${descuento}</h5>`
+        }
+        tablaLs.innerHTML += ponerPrecio
+    }
+    else{
+        h5Sacar.innerHTML = "Usted no agrego nada al carro, vuelva al inicio y agregue algo"
+    }
 }
 
 ponerProductos()
 
 const reinicio = () =>{
+    descuento = 0
     totalcd = 0
     productosCarrito = []
     precio = 0
 
+    let txt = document.querySelector(`#llevar`)
+    let boton = document.querySelector(`#comprar`)
+    let volver = document.querySelector(`#volver`)
+
+    localStorage.setItem("Descuento", JSON.stringify(descuento))
     localStorage.setItem("Productos", JSON.stringify(productosCarrito))
     localStorage.setItem("Precio", JSON.stringify(precio))
+
+    volver.className = "mostrar"
+    txt.className = "ocultar"
+    boton.className="ocultar"
     
     h5Sacar.innerHTML = "Ya compro lo seleccionado, por lo que no va a llevar nada, por lo que no va a gastar nada"
     prd.innerHTML = ""
     tablaLs.innerHTML = ""
+
 }
 function carro(){
     if(precio !=0 ){
-            if(precio >= 50000){
-            var totalcd = precio*0.9
-        }
-        else{
-            var totalcd = precio
-        }
+    //         if(precio >= 50000){
+    //         var totalcd = precio*0.9
+    //     }
+    //     else{
+    //         var totalcd = precio
+    //     }
         Swal.fire({
             title: 'Lo quiere comprar?',
             icon: 'question',
@@ -102,7 +109,7 @@ function carro(){
                     confirmButtonText: 'Si!'
                   }).then((result) => {
                     if (result.isConfirmed) {
-                        let compra = new compras(nombrePersona, totalcd, date)
+                        let compra = new compras(nombrePersona, precio, date)
                         let recibo = `
                         <br>
                         <div class="card" style="width: 180px;height: 310px;">
@@ -159,7 +166,7 @@ function carro(){
             icon: 'error',
             title: 'Oops...',
             text: 'Usted no selecciono ningun producto!',
-            footer: 'Seleccione algun producto en el inicio'
+            footer: `Seleccione algun producto en el <a href="index.html">_inicio</a>`
           })
     }
 

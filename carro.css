@@ -2,3 +2,12 @@
     display: flex;
     flex-wrap: wrap;
 }
+body{
+    background:linear-gradient(to bottom, #F5D7C8, #D6FFFC) ;
+}
+.ocultar{
+    display: none;
+}
+.mostrar{
+    display: inline;
+}
