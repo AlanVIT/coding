@@ -27,32 +27,27 @@ let recibos = document.querySelector("#recibos")
 
 //Funciones
 function ponerProductos(){
-    if(precio ==! 0){
-        let ponerPrecio
-        productosCarrito.sort()
-        productosCarrito.forEach(producto =>{        
-            let prod = `<div class="card" style="width: 180px;height: 150px;">
-            <div class="card-body">
-                <h5 class="card-title">${producto.nombre}</h5>
-                <br>
-                <br>
-                <p>${producto.precio+"$"}</p>
-            </div>
+    let ponerPrecio
+    productosCarrito.sort()
+    productosCarrito.forEach(producto =>{        
+        let prod = `<div class="card" style="width: 180px;height: 150px;">
+        <div class="card-body">
+            <h5 class="card-title">${producto.nombre}</h5>
+            <br>
+            <br>
+            <p>${producto.precio+"$"}</p>
         </div>
-        <br>`
-        prd.innerHTML += prod
-        })
-        if(descuento === 0){
-            precio === 45000?ponerPrecio =`<h5>Acaso usted no sabe que hacemos un descuento del 10% gastando mas de 50000$?, usted gasto 45.000, por lo que puede gastar 5000 pagados por nosotros, vuelva al <a href="index.html">inicio</a> y agarre lo que guste por 5000$</h5>`:ponerPrecio =`<h5>En total va a gastar ${precio}$, si gasta ${50000-precio}$ o mas tendra un descuento del 10%</h5>`
-        }
-        else{
-            ponerPrecio =`<h5>En total va a gastar ${precio}$, su descuento es de ${descuento}</h5>`
-        }
-        tablaLs.innerHTML += ponerPrecio
+    </div>
+    <br>`
+    prd.innerHTML += prod
+    })
+    if(descuento === 0){
+        precio === 45000?ponerPrecio =`<h5>Acaso usted no sabe que hacemos un descuento del 10% gastando mas de 50000$?, usted gasto 45.000, por lo que puede gastar 5000 pagados por nosotros, vuelva al <a href="index.html">inicio</a> y agarre lo que guste por 5000$</h5>`:ponerPrecio =`<h5>En total va a gastar ${precio}$, si gasta ${50000-precio}$ o mas tendra un descuento del 10%</h5>`
     }
     else{
-        h5Sacar.innerHTML = "Usted no agrego nada al carro, vuelva al inicio y agregue algo"
+        ponerPrecio =`<h5>En total va a gastar ${precio}$, su descuento es de ${descuento}</h5>`
     }
+    tablaLs.innerHTML += ponerPrecio
 }
 
 ponerProductos()
